@@ -9,45 +9,36 @@ class UserItem extends Component {
     };
   }
 
-  handleEdit = () => {
+  handleEdit = (UpdatedUser) => {
+    if (this.state.isEditOn) this.props.onUpdate(this.props.user._id, UpdatedUser);
     this.setState({ isEditOn: !this.state.isEditOn });
   };
 
   render() {
     const { user: u } = this.props;
     return (
-      <div className="card m-2">
-        <div className="card-header">Vartotojas: </div>
-        <h5 className="card-title">Vartotojo vardas:</h5>
-        <div className="card m-2">{u.username}</div>
-        <h5 className="card-title">Vartotojo el pastas:</h5>
-        <div className="card m-2">{u.email}</div>
-        <h5 className="card-title">Vartotojo slaptazodis:</h5>
-        <div className="card m-2">{u.password}</div>
-        <h5 className="card-title">Vartotojo amzius:</h5>
-        <div className="card m-2">{u.age}</div>
-        <div className="card-footer">
-          <button className="btn btn-success">Redaguoti</button>
-          <button onClick={() => this.props.onDelete(u._id)} className="btn btn-danger">
-            Istrinti
-          </button>
-        </div>
+      <div className="card m-2 text-center">
         {this.state.isEditOn ? (
-          <UserForm user={u} />
+          <UserForm user={u} onEdit={this.handleEdit} />
         ) : (
           <React.Fragment>
-            <div className="card-header">Vartotojas: </div>
-            <h5 className="card-title">Vartotojo vardas:</h5>
-            <div className="card m-2">{u.username}</div>
-            <h5 className="card-title">Vartotojo el pastas:</h5>
-            <div className="card m-2">{u.email}</div>
-            <h5 className="card-title">Vartotojo slaptazodis:</h5>
-            <div className="card m-2">{u.password}</div>
-            <h5 className="card-title">Vartotojo amzius:</h5>
-            <div className="card m-2">{u.age}</div>
+            <div>
+              <div className="card-header">Vartotojas </div>
+              <p className="card-title">Vartotojo vardas: {u.username}</p>
+              <p className="card-title">Vartotojo el pastas: {u.email}</p>
+              <p aria-hidden="true" className="card-title">
+                Vartotojo slaptazodis:
+              </p>
+              <label className="card-title" for="password">
+                {u.password}
+              </label>
+              <p className="card-title">Vartotojo amzius: {u.age}</p>
+            </div>
             <div className="card-footer">
-              <button className="btn btn-success">Redaguoti</button>
-              <button onClick={() => this.props.onDelete(u._id)} className="btn btn-danger">
+              <button onClick={this.handleEdit} className="btn btn-success m-2">
+                Redaguoti
+              </button>
+              <button onClick={() => this.props.onDelete(u._id)} className="btn btn-danger m-2">
                 Istrinti
               </button>
             </div>

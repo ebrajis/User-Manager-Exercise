@@ -20,7 +20,6 @@ mongoose
   .catch((err) => console.error(err.message));
 
 //Our routes
-
 app.use('/', userRoutes);
 
 app.listen(PORT, console.log(`Server is running on port ${PORT}`));

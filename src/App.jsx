@@ -14,17 +14,15 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    await this.getAllUsers();
+    this.getAllUsers();
+    console.log(this.getAllUsers);
   };
 
   getAllUsers = async () => {
     try {
-      const allUsersFromDb = await axios.get('http://localhost:4000/users');
-      console.log('alluserfromdb', allUsersFromDb);
+      const allUsersFromDb = await axios.get('http://localhost:4000/api/user');
       if (allUsersFromDb.data) {
-        if (Array.isArray(allUsersFromDb.data) && allUsersFromDb.data.length) {
-          this.setState({ users: allUsersFromDb.data });
-        }
+        this.setState({ users: allUsersFromDb.data });
       }
     } catch (error) {
       console.error(error);
@@ -58,7 +56,12 @@ class App extends Component {
   };
 
   updateUser = async (id, updatedDetails) => {
-    console.log('about to update user', id, updatedDetails);
+    try {
+      const updateData = await axios.put('http://localhost:4000/api/user/update/' + id, updatedDetails);
+      if (updateData.data) this.getAllUsers();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   render() {

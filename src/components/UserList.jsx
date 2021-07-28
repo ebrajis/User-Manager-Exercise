@@ -5,7 +5,9 @@ class UserList extends Component {
   render() {
     return (
       <div>
-        <h1>userList</h1>
+        <div className="container_title my-4">
+          <h1>Vartotojų kortelės</h1>
+        </div>
         <div className="users-list d-flex flex-wrap">
           {this.props.users.map((user) => (
             <UserItem onUpdate={this.props.onUpdate} onDelete={this.props.onDelete} user={user} key={user._id} />

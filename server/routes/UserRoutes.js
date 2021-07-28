@@ -3,9 +3,8 @@ const UserModel = require('../models/user');
 const router = express.Router();
 
 //get new user
-router.post('/newuser', async (req, res) => {
+router.post('/api/user/new', async (req, res) => {
   const gotNewUserData = req.body;
-  console.log(' gotNewUserData', gotNewUserData);
   const newUser = new UserModel(gotNewUserData);
   try {
     const creatingNewUserResult = await newUser.save();
@@ -16,23 +15,34 @@ router.post('/newuser', async (req, res) => {
 });
 
 //delete user
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/api/user/delete/:userId', async (req, res) => {
   const idOfItemToDelete = req.params.userId;
   try {
     const deleteResult = await UserModel.findByIdAndDelete(idOfItemToDelete);
     res.json(deleteResult);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+//update user
+router.put('/api/user/update/:userId', async (req, res) => {
+  const idOfItemToUpdate = req.params.userId;
+  const updatedUser = req.body;
+  try {
+    const updateResultModel = await UserModel.findByIdAndUpdate(idOfItemToUpdate, updatedUser);
+    res.json(updateResultModel);
   } catch (error) {
     res.status(500).json();
   }
 });
 
 //get all users
-router.get('/allusers', async (req, res) => {
+router.get('/api/user', async (req, res) => {
   try {
     const allUsersFromDb = await UserModel.find({});
     res.json(allUsersFromDb);
   } catch (error) {
-    res.status(500).json();
+    res.status(500).json(error);
   }
 });
 

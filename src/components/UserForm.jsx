@@ -9,6 +9,15 @@ class UserForm extends Component {
     age: '',
   };
 
+  componentDidMount() {
+    this.props.user && this.EditWindowSS();
+  }
+
+  EditWindowSS() {
+    const { username, email, password, repeatPassword, age } = this.props.user;
+    this.setState({ username, email, password, repeatPassword, age });
+  }
+
   clearInputs = () => {
     this.setState({
       username: '',
@@ -20,8 +29,8 @@ class UserForm extends Component {
   };
 
   handleSubmit = async (e) => {
-    const { username, email, password, repeatPassword, age } = this.state;
     e.preventDefault();
+    const { username, email, password, repeatPassword, age } = this.state;
     const dataToCreateNewUser = {
       username,
       email,
@@ -29,7 +38,10 @@ class UserForm extends Component {
       repeatPassword,
       age,
     };
-    console.log('dataToCreateNewUser', dataToCreateNewUser);
+    if (this.props.user) {
+      this.props.onEdit(dataToCreateNewUser);
+      return;
+    }
     const createSuccess = await this.props.onCreateNewUser(dataToCreateNewUser);
     if (createSuccess) this.clearInputs();
   };
@@ -86,7 +98,9 @@ class UserForm extends Component {
               placeholder="Amžius"
             />
             <div className="buttons">
-              <button type="submit">Sukurti</button>
+              <button type="submit" className="btn btn-primary">
+                {this.props.product ? 'Sukuriam!' : 'Iššsaugom!'}
+              </button>
             </div>
           </form>
         </div>
