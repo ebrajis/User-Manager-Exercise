@@ -20,7 +20,7 @@ class UserForm extends Component {
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     const { username, email, password, repeatPassword, age } = this.state;
     e.preventDefault();
     const dataToCreateNewUser = {
@@ -31,7 +31,8 @@ class UserForm extends Component {
       age,
     };
     console.log('dataToCreateNewUser', dataToCreateNewUser);
-    this.props.onCreateNewUser(dataToCreateNewUser);
+    const createSuccess = await this.props.onCreateNewUser(dataToCreateNewUser);
+    if (createSuccess) this.clearInputs();
   };
 
   handleInput = (e) => {
@@ -57,7 +58,7 @@ class UserForm extends Component {
               value={s.email}
               onChange={this.handleInput}
               className="input"
-              type="text"
+              type="email"
               name="email"
               placeholder="El.Paštas"
             />
@@ -65,7 +66,7 @@ class UserForm extends Component {
               value={s.password}
               onChange={this.handleInput}
               className="input"
-              type="text"
+              type="password"
               name="password"
               placeholder="Slaptažodis"
             />
@@ -73,7 +74,7 @@ class UserForm extends Component {
               value={s.repeatPassword}
               onChange={this.handleInput}
               className="input"
-              type="text"
+              type="password"
               name="repeatPassword"
               placeholder="Pakartoti Slaptažodi"
             />
