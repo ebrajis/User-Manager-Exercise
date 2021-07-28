@@ -13,13 +13,14 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    this.getAllUsers();
-  }
+  componentDidMount = async () => {
+    await this.getAllUsers();
+  };
 
   getAllUsers = async () => {
     try {
-      const allUsersFromDb = await axios.get('http://localhost:4000/api/user');
+      const allUsersFromDb = await axios.get('http://localhost:4000/users');
+      console.log('alluserfromdb', allUsersFromDb);
       if (allUsersFromDb.data) {
         if (Array.isArray(allUsersFromDb.data) && allUsersFromDb.data.length) {
           this.setState({ users: allUsersFromDb.data });
@@ -34,7 +35,7 @@ class App extends Component {
     console.log('createNewUser in app.jsx');
     // console.log('dataToCreateNewUser', dataToCreateNewUser);
     try {
-      const createResult = await axios.post('http://localhost:3000/api/user/new', dataToCreateNewUser);
+      const createResult = await axios.post('http://localhost:4000/api/user/new', dataToCreateNewUser);
       this.getAllUsers();
       console.log('createResult', createResult.data);
       return createResult.data ? true : false;
@@ -56,13 +57,17 @@ class App extends Component {
     }
   };
 
+  updateUser = async (id, updatedDetails) => {
+    console.log('about to update user', id, updatedDetails);
+  };
+
   render() {
     return (
       <div className="App">
         <div className="container">
           <div className="container d-flex">
             <UserForm onCreateNewUser={this.createNewUser} />
-            <UserList onDelete={this.deleteUser} users={this.state.users} />
+            <UserList onUpdate={this.updateUser} onDelete={this.deleteUser} users={this.state.users} />
           </div>
         </div>
       </div>

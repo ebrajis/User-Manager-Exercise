@@ -3,7 +3,7 @@ const UserModel = require('../models/user');
 const router = express.Router();
 
 //get new user
-router.post('/api/user/new', async (req, res) => {
+router.post('/newuser', async (req, res) => {
   const gotNewUserData = req.body;
   console.log(' gotNewUserData', gotNewUserData);
   const newUser = new UserModel(gotNewUserData);
@@ -16,7 +16,7 @@ router.post('/api/user/new', async (req, res) => {
 });
 
 //delete user
-router.delete('/api/user/delete/:userId', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   const idOfItemToDelete = req.params.userId;
   try {
     const deleteResult = await UserModel.findByIdAndDelete(idOfItemToDelete);
@@ -27,7 +27,7 @@ router.delete('/api/user/delete/:userId', async (req, res) => {
 });
 
 //get all users
-router.get('/api/user', async (req, res) => {
+router.get('/allusers', async (req, res) => {
   try {
     const allUsersFromDb = await UserModel.find({});
     res.json(allUsersFromDb);
