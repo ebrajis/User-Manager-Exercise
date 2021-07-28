@@ -11,3 +11,5 @@
 * Start backend with npm run back. FrontEnd with npm run start
 
 * Create new folder in src directory => Components and inside create new file UserForm.jsx
+
+* Fill the app.jsx file/ import UserForm.jsx and type to class render.
