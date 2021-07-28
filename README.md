@@ -5,3 +5,7 @@
 - Install dotenv, express, morgan, mongoose, cors
 
 * Create new file .env
+
+* Connected to own mongoDb
+
+*
