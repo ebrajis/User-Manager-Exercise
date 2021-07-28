@@ -7,7 +7,6 @@ class UserForm extends Component {
     password: '',
     repeatPassword: '',
     age: '',
-    agreement: false,
   };
 
   clearInputs = () => {
@@ -88,9 +87,6 @@ class UserForm extends Component {
             />
             <div className="buttons">
               <button type="submit">Sukurti</button>
-              <button type="submit">Ištrinti</button>
-              <button type="submit">Redaguoti</button>
-              <button type="submit">Peržiūrėti</button>
             </div>
           </form>
         </div>

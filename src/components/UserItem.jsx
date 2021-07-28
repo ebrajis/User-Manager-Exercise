@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
+import UserForm from './UserForm';
+
 class UserItem extends Component {
   render() {
+    const { user: u } = this.props;
     return (
-      <div>
-        <h2>user item</h2>
-        <div className="card m-2">
-          <div className="card-header">Place type: </div>
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">Continent:</p>
-            <p className="card-text">Population:</p>
-          </div>
-          <div className="card-footer">
-            <button className="btn btn-success">Edit</button>
-            <button className="btn btn-danger">Delete</button>
-          </div>
+      <div className="card m-2">
+        <div className="card-header">Vartotojas: </div>
+        <h5 className="card-title">Vartotojo vardas:</h5>
+        <div className="card m-2">{u.username}</div>
+        <h5 className="card-title">Vartotojo el pastas:</h5>
+        <div className="card m-2">{u.email}</div>
+        <h5 className="card-title">Vartotojo slaptazodis:</h5>
+        <div className="card m-2">{u.password}</div>
+        <h5 className="card-title">Vartotojo amzius:</h5>
+        <div className="card m-2">{u.age}</div>
+        <div className="card-footer">
+          <button className="btn btn-success">Redaguoti</button>
+          <button onClick={() => this.props.onDelete(u._id)} className="btn btn-danger">
+            Istrinti
+          </button>
         </div>
       </div>
     );

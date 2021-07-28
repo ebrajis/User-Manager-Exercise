@@ -9,7 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [1, 2, 3],
+      users: [],
     };
   }
 
@@ -19,9 +19,11 @@ class App extends Component {
 
   getAllUsers = async () => {
     try {
-      const allUsersFromDb = await axios.get('http://localhost:4000/api/users');
+      const allUsersFromDb = await axios.get('http://localhost:4000/api/user');
       if (allUsersFromDb.data) {
-        this.setState({ users: allUsersFromDb.data });
+        if (Array.isArray(allUsersFromDb.data) && allUsersFromDb.data.length) {
+          this.setState({ users: allUsersFromDb.data });
+        }
       }
     } catch (error) {
       console.error(error);
@@ -33,8 +35,22 @@ class App extends Component {
     // console.log('dataToCreateNewUser', dataToCreateNewUser);
     try {
       const createResult = await axios.post('http://localhost:3000/api/user/new', dataToCreateNewUser);
+      this.getAllUsers();
       console.log('createResult', createResult.data);
       return createResult.data ? true : false;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  deleteUser = async (id) => {
+    try {
+      const deleteResult = await axios.delete('http://localhost:4000/api/user/delete/' + id);
+      console.log('deleteResult', deleteResult.data);
+      this.getAllUsers();
+      if (deleteResult.data) {
+        this.getAllUsers();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -46,7 +62,7 @@ class App extends Component {
         <div className="container">
           <div className="container d-flex">
             <UserForm onCreateNewUser={this.createNewUser} />
-            <UserList users={this.state.users} />
+            <UserList onDelete={this.deleteUser} users={this.state.users} />
           </div>
         </div>
       </div>
