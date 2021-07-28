@@ -10,6 +10,16 @@ class UserForm extends Component {
     agreement: false,
   };
 
+  clearInputs = () => {
+    this.setState({
+      username: '',
+      email: '',
+      password: '',
+      repeatPassword: '',
+      age: '',
+    });
+  };
+
   handleSubmit = (e) => {
     const { username, email, password, repeatPassword, age } = this.state;
     e.preventDefault();
