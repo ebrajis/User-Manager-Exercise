@@ -16,3 +16,8 @@ mongoose
     console.log('You are connect to MongoDb');
   })
   .catch((err) => console.error(err.message));
+
+//Our routes
+
+const userRoutes = require('./server/routes/userRoutes');
+app.use('/', userRoutes);
