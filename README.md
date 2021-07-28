@@ -1,5 +1,7 @@
-# Start Project
+# Project
 
-# Install react
+- Install react and delete useless files.
 
-#
+- Install dotenv, express, morgan, mongoose, cors
+
+* Create new file .env
