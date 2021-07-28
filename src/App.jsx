@@ -12,6 +12,22 @@ class App extends Component {
       users: [1, 2, 3],
     };
   }
+
+  componentDidMount() {
+    this.getAllUsers();
+  }
+
+  getAllUsers = async () => {
+    try {
+      const allUsersFromDb = await axios.get('http://localhost:4000/api/users');
+      if (allUsersFromDb.data) {
+        this.setState({ users: allUsersFromDb.data });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   createNewUser = async (dataToCreateNewUser) => {
     console.log('createNewUser in app.jsx');
     // console.log('dataToCreateNewUser', dataToCreateNewUser);

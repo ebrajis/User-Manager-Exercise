@@ -9,6 +9,11 @@ class UserList extends Component {
         {this.props.users.map((user) => (
           <UserItem user={user} key={user} />
         ))}
+        <div className="users-list d-flex flex-wrap">
+          {this.props.users.map((user) => (
+            <UserItem user={user} key={user} />
+          ))}
+        </div>
       </div>
     );
   }
