@@ -4,6 +4,8 @@ require('dotenv').config();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const app = express();
+const PORT = process.env.PORT || 5000;
+const userRoutes = require('./server/routes/UserRoutes');
 
 // MiddleWare
 app.use(morgan('dev'));
@@ -19,5 +21,6 @@ mongoose
 
 //Our routes
 
-const userRoutes = require('./server/routes/userRoutes');
 app.use('/', userRoutes);
+
+app.listen(PORT, console.log(`Server is running on port ${PORT}`));
