@@ -11,8 +11,17 @@ class UserForm extends Component {
   };
 
   handleSubmit = (e) => {
+    const { username, email, password, repeatPassword, age } = this.state;
     e.preventDefault();
-    console.log('stop right there');
+    const dataToCreateNewUser = {
+      username,
+      email,
+      password,
+      repeatPassword,
+      age,
+    };
+    console.log('dataToCreateNewUser', dataToCreateNewUser);
+    this.props.onCreateNewUser(dataToCreateNewUser);
   };
 
   handleInput = (e) => {
